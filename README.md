@@ -12,12 +12,12 @@ This project uses Ruby 2.4.1 and Rails 5.1.3.
 
 ### Configuration
 
-`$ bundle`
+`$ bundle`  
 `$ rails g rspec:install`
 
 ### Database Setup
 
-`$ bundle exec rake db:create`
+`$ bundle exec rake db:create`  
 `$ bundle exec rake db:migrate`
 
 Rake task info for data seeding goes here.
@@ -26,5 +26,5 @@ Rake task info for data seeding goes here.
 
 ### Testing
 
-`$ bundle exec rake db:test:prepare`
+`$ bundle exec rake db:test:prepare`  
 `$ rspec`
