@@ -1,24 +1,30 @@
-# README
+# RailsEngine
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project uses an API to access and analyze the [SalesEngine](https://github.com/turingschool-examples/sales_engine/tree/master/data) data.
 
-Things you may want to cover:
+### Versions
 
-* Ruby version
+This project uses Ruby 2.4.1 and Rails 5.1.3.
 
-* System dependencies
+### Setup
 
-* Configuration
+`$ git clone git@github.com:katiekeel/rails-engine.git`
 
-* Database creation
+### Configuration
 
-* Database initialization
+`$ bundle`
+`$ rails g rspec:install`
 
-* How to run the test suite
+### Database Setup
 
-* Services (job queues, cache servers, search engines, etc.)
+`$ bundle exec rake db:create`
+`$ bundle exec rake db:migrate`
 
-* Deployment instructions
+Rake task info for data seeding goes here.
 
-* ...
+[More about rake tasks](https://github.com/ruby/rake)
+
+### Testing
+
+`$ bundle exec rake db:test:prepare`
+`$ rspec`
