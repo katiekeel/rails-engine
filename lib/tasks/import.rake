@@ -1,5 +1,7 @@
 require 'csv'
 
+counter = 0
+
 desc "Import csv data"
 task :import => [:environment] do
 
@@ -12,31 +14,18 @@ task :import => [:environment] do
       :created_at => row[3],
       :updated_at => row[4]
     })
+    puts counter += 1
   end
 
-  invoice_items = "db/invoice_items.csv"
+  merchants = "db/merchants.csv"
 
-  CSV.foreach(invoice_items, :headers => true) do |row|
-    InvoiceItem.create!({
-      :item_id => row[1],
-      :invoice_id => row[2],
-      :quantity => row[3],
-      :unit_price => row[4],
-      :created_at => row[5],
-      :updated_at => row[6]
+  CSV.foreach(merchants, :headers => true) do |row|
+    Merchant.create!({
+      :name => row[1],
+      :created_at => row[2],
+      :updated_at => row[3]
     })
-  end
-
-  invoices = "db/invoices.csv"
-
-  CSV.foreach(invoices, :headers => true) do |row|
-    Invoice.create!({
-      :customer_id => row[1],
-      :merchant_id => row[2],
-      :status => row[3],
-      :created_at => row[4],
-      :updated_at => row[5]
-    })
+    puts counter += 1
   end
 
   items = "db/items.csv"
@@ -50,16 +39,34 @@ task :import => [:environment] do
       :created_at => row[5],
       :updated_at => row[6]
     })
+    puts counter += 1
   end
 
-  merchants = "db/merchants.csv"
+  invoices = "db/invoices.csv"
 
-  CSV.foreach(merchants, :headers => true) do |row|
-    Merchant.create!({
-      :name => row[1],
-      :created_at => row[2],
-      :updated_at => row[3]
+  CSV.foreach(invoices, :headers => true) do |row|
+    Invoice.create!({
+      :customer_id => row[1],
+      :merchant_id => row[2],
+      :status => row[3],
+      :created_at => row[4],
+      :updated_at => row[5]
     })
+    puts counter += 1
+  end
+
+  invoice_items = "db/invoice_items.csv"
+
+  CSV.foreach(invoice_items, :headers => true) do |row|
+    InvoiceItem.create!({
+      :item_id => row[1],
+      :invoice_id => row[2],
+      :quantity => row[3],
+      :unit_price => row[4],
+      :created_at => row[5],
+      :updated_at => row[6]
+    })
+    puts counter += 1
   end
 
   transactions = "db/transactions.csv"
@@ -72,6 +79,7 @@ task :import => [:environment] do
       :created_at => row[5],
       :updated_at => row[6]
     })
+    puts counter += 1
   end
 
 end
