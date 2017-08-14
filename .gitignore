@@ -14,3 +14,10 @@
 !/tmp/.keep
 
 .byebug_history
+
+/db/customers.csv
+/db/merchants.csv
+/db/transactions.csv
+/db/items.csv
+/db/invoice_items.csv
+/db/invoices.csv
