@@ -44,6 +44,23 @@ describe "Merchants` API" do
     expect(json["name"]).to eq merchant.name
   end
 
+  context "Case insensitive" do
+    it "finds one merchant by name" do
+      merchant = create(:merchant)
+
+      get "/api/v1/merchants/find?name=#{merchant.name.downcase}"
+      json = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(json["name"]).to eq merchant.name
+
+      get "/api/v1/merchants/find?name=#{merchant.name.upcase}"
+      json = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(json["name"]).to eq merchant.name
+    end
   end
+end
 
 
