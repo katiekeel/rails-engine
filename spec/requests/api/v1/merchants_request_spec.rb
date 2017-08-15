@@ -69,7 +69,7 @@ describe "Merchants` API" do
     json = JSON.parse(response.body)
 
     expect(response).to be_success
-    expect(json.count).to eq 5 
+    expect(json.count).to eq 5
     expect(json.first["id"]).to eq merchants[0].id
     expect(json[1]["name"]).to eq "Super"
    end
