@@ -34,7 +34,12 @@ describe "Items API" do
   end
 
   xit "finds one item by name" do
+    get "/api/v1/items/find?name=#{item.name}"
 
+    json = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(json["name"]).to eq item.name
   end
 
   xit "finds one item by description" do
@@ -42,8 +47,20 @@ describe "Items API" do
   end
 
   context "Case insensitive" do
-    xit "finds one item by name" do
+    it "finds one item by name" do
+      item = create(:item)
 
+      get "/api/v1/items/find?name=#{item.name.downcase}"
+      json = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(json["name"]).to eq item.name
+
+      get "/api/v1/items/find?name=#{item.name.upcase}"
+      json = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(json["name"]).to eq item.name
     end
 
     xit "finds one item by description" do
@@ -83,7 +100,7 @@ describe "Items API" do
     xit "finds all items by name" do
 
     end
-    
+
     xit "finds all items by description" do
 
     end
