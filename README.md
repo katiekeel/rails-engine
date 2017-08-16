@@ -18,7 +18,7 @@ This project uses Ruby 2.4.1 and Rails 5.1.3.
 ### Database Setup
 
 `$ bundle exec rake db:create`  
-`$ bundle exec rake db:migrate`
+`$ bundle exec rake db:migrate`  
 `$ rake import`
 
 [More about rake tasks](https://github.com/ruby/rake)
