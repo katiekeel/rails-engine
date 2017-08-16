@@ -72,7 +72,19 @@ describe "Merchants` API" do
     expect(json.count).to eq 5
     expect(json.first["id"]).to eq merchants[0].id
     expect(json[1]["name"]).to eq "Super"
-   end
+  end
+
+  it "finds a random item" do
+    merchants = create_list(:merchant, 10)
+
+    get "/api/v1/merchants/random.json"
+
+    json = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(json.keys).to eq ["id", "name"]
+    expect(json.class).to eq Hash
+  end
 end
 
 
