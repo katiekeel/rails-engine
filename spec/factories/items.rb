@@ -8,7 +8,7 @@ FactoryGirl.define do
       "Description #{x}"
     end
 
-    unit_price 1
+    unit_price "0.01"
     merchant
   end
 end

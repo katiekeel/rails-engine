@@ -12,7 +12,7 @@ gem 'rails', '~> 5.1.3'
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
-
+gem 'active_model_serializers'
 
 
 group :development, :test do
@@ -23,6 +23,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
+  gem 'launchy'
+  gem 'capybara'
 end
 
 group :development do
