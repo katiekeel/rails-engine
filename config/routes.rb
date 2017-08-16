@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :invoices, only: [:index, :show]
       resources :invoice_items, only: [:index, :show]
       namespace :merchants do
+        get "/:id/revenue", to: "revenue#show"
         get "/find", to: "search#show"
         get "/find_all", to: "search#index"
         get "/random.json", to: "random#show"
@@ -38,6 +39,7 @@ Rails.application.routes.draw do
         get "/random.json", to: "random#show"
       end
       resources :customers, only: [:index, :show]
+        get "/:id/revenue", to: "revenue#show"
+      end
     end
   end
-end
