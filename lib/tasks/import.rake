@@ -62,7 +62,7 @@ task :import => [:environment] do
       :item_id => row[1],
       :invoice_id => row[2],
       :quantity => row[3],
-      :unit_price => row[4],
+      :unit_price => '%.2f' % (row[4].to_i/100.0),
       :created_at => row[5],
       :updated_at => row[6]
     })
