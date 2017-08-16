@@ -1,4 +1,4 @@
-describe "Merchants` API" do
+describe "Merchants API" do
   it "sends a list of items" do
     create_list(:merchant, 3)
 
@@ -22,7 +22,7 @@ describe "Merchants` API" do
     expect(merchant["id"]).to eq(id)
   end
 
-  it "finds one item by merchant_id " do
+  it "finds one merchant by merchant_id " do
     merchant = create(:merchant)
 
     get "/api/v1/merchants/find?id=#{merchant.id}"
