@@ -7,5 +7,4 @@ class Item < ApplicationRecord
   validates_numericality_of :unit_price
 
   default_scope { order(id: :asc) }
-
 end
