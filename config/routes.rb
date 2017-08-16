@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       resources :invoice_items, only: [:index, :show]
       namespace :merchants do
         get "/:id/revenue", to: "revenue#show"
+        get "/:id/favorite_customer", to: "favorite_customer#show"
       end
     end
   end
