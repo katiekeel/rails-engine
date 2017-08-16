@@ -1,8 +1,10 @@
-describe "Transactions Api" do
+require 'spec_helper'
+
+describe "Transactions API" do
   it "sends a list of transactions" do
     create_list(:transaction, 3)
 
-    get 'api/v1/transactions'
+    get '/api/v1/transactions'
 
     expect(response).to be_success
 
@@ -11,7 +13,7 @@ describe "Transactions Api" do
     expect(json.count).to eq(3)
   end
 
-  xit "can get one transaction by its id" do
+  it "can get one transaction by its id" do
     id = create(:transaction).id
 
     get "/api/v1/transactions/#{id}"
@@ -22,29 +24,39 @@ describe "Transactions Api" do
     expect(json["id"]).to eq(id)
   end
 
-  xit "finds one transaction by transaction_id" do
+  it "finds one transaction by merchant_id " do
     transaction = create(:transaction)
 
-    get "/api/v1/transactions/find?id=#{transaction}.id"
+    get "/api/v1/transactions/find?id=#{transaction.id}"
 
     json = JSON.parse(response.body)
 
     expect(response).to be_success
-    expect(json["name"]).to eq merchant.name
+    expect(json["id"]).to eq(transaction.id)
   end
 
-  xit "finds one transaction by credit card number" o
+  it "finds one transaction by result" do
     transaction = create(:transaction)
 
-    get "/api/v1/transactions/find?invoice_id=#{transaction.credit_card_number}"
+    get "/api/v1/transactions/find?result=#{transaction.result}"
 
-    json= = JSON.parse(response.body)
+    json = JSON.parse(response.body)
 
     expect(response).to be_success
-    expect(json["credit_card_number"]).to eq transaction.credit_card_number
+    expect(json["result"]).to eq transaction.result
   end
 
+  it "finds a random transaction" do
+    transaction = create_list(:transaction, 10)
 
+    get "/api/v1/transactions/random.json"
+
+    json = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(json.keys).to eq ["id", "invoice_id", "credit_card_number", "result"]
+    expect(json.class).to eq Hash
+  end
 end
 
 

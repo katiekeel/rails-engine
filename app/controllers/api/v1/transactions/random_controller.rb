@@ -1,4 +1,4 @@
-class Api::V1:Transaction::RandomController<ApplicationController
+class Api::V1::Transactions::RandomController<ApplicationController
 
   def show
     render json: Transaction.order("RANDOM()").first
