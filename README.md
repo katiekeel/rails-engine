@@ -19,8 +19,7 @@ This project uses Ruby 2.4.1 and Rails 5.1.3.
 
 `$ bundle exec rake db:create`  
 `$ bundle exec rake db:migrate`
-
-Rake task info for data seeding goes here.
+`$ rake import`
 
 [More about rake tasks](https://github.com/ruby/rake)
 
