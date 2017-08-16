@@ -63,7 +63,7 @@ describe "Items API" do
     json = JSON.parse(response.body)
 
     expect(response).to be_success
-    expect(json["created_at"]).to eq "2012-03-27T14:54:05.000Z"
+    expect(json["id"]).to eq item.id
   end
 
   it "finds one item by updated at" do
@@ -74,7 +74,7 @@ describe "Items API" do
     json = JSON.parse(response.body)
 
     expect(response).to be_success
-    expect(json["updated_at"]).to eq "2012-03-27T14:54:05.000Z"
+    expect(json["id"]).to eq item.id
   end
 
   context "Case insensitive" do
@@ -112,14 +112,14 @@ describe "Items API" do
   end
 
   it "finds one item by unit price" do
-    item = create(:item, unit_price: 55)
+    item = create(:item, unit_price: "0.55")
 
     get "/api/v1/items/find?unit_price=#{item.unit_price}"
 
     json = JSON.parse(response.body)
 
     expect(response).to be_success
-    expect(json["unit_price"]).to eq '%.2f' % (item.unit_price/100.0)
+    expect(json["unit_price"]).to eq "0.55"
   end
 
   it "finds one item by merchant id" do
@@ -183,9 +183,9 @@ describe "Items API" do
     end
 
     it "finds all items by description" do
-      item_1 = create(:item, name: "Item", description: "First item")
-      item_2 = create(:item, name: "Item", description: "Third item")
-      item_3 = create(:item, name: "Item", description: "Third item")
+      item_1 = create(:item, name: "Item", description: "ITEM")
+      item_2 = create(:item, name: "Item", description: "ITEM")
+      item_3 = create(:item, name: "Item", description: "ITEM")
 
       get "/api/v1/items/find_all?description=ITEM"
 
@@ -200,14 +200,15 @@ describe "Items API" do
   end
 
   it "finds all items by unit price" do
-    items = create_list(:item, 3, unit_price: 55)
+    items = create_list(:item, 3, unit_price: "0.55")
 
-    get "/api/v1/items/find_all?unit_price=55"
+    get "/api/v1/items/find_all?unit_price=0.55"
 
     json = JSON.parse(response.body)
 
     expect(response).to be_success
     expect(json.count).to eq 3
+
     expect(json.first["unit_price"]).to eq "0.55"
     expect(json[1]["unit_price"]).to eq "0.55"
     expect(json[2]["unit_price"]).to eq "0.55"
@@ -229,29 +230,29 @@ describe "Items API" do
   end
 
   it "finds all items by created at" do
-    item = create_list(:item, 3, created_at: "2012-03-27 14:54:05 UTC")
+    items = create_list(:item, 3, created_at: "2012-03-27 14:54:05 UTC")
 
     get "/api/v1/items/find_all?created_at=2012-03-27T14:54:05.000Z"
 
     json = JSON.parse(response.body)
 
     expect(response).to be_success
-    expect(json[0]["created_at"]).to eq "2012-03-27T14:54:05.000Z"
-    expect(json[1]["created_at"]).to eq "2012-03-27T14:54:05.000Z"
-    expect(json[2]["created_at"]).to eq "2012-03-27T14:54:05.000Z"
+    expect(json[0]["id"]).to eq items.first.id
+    expect(json[1]["id"]).to eq items[1].id
+    expect(json[2]["id"]).to eq items[2].id
   end
 
   it "finds all items by updated at" do
-    item = create_list(:item, 3, updated_at: "2012-03-27 14:54:05 UTC")
+    items = create_list(:item, 3, updated_at: "2012-03-27 14:54:05 UTC")
 
     get "/api/v1/items/find_all?updated_at=2012-03-27T14:54:05.000Z"
 
     json = JSON.parse(response.body)
 
     expect(response).to be_success
-    expect(json[0]["updated_at"]).to eq "2012-03-27T14:54:05.000Z"
-    expect(json[1]["updated_at"]).to eq "2012-03-27T14:54:05.000Z"
-    expect(json[2]["updated_at"]).to eq "2012-03-27T14:54:05.000Z"
+    expect(json[0]["id"]).to eq items.first.id
+    expect(json[1]["id"]).to eq items[1].id
+    expect(json[2]["id"]).to eq items[2].id
   end
 
   it "finds a random item" do
