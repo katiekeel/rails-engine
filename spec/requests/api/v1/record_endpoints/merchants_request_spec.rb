@@ -62,7 +62,7 @@ describe "Merchants API" do
     end
   end
 
-  it "finds all items by name" do
+  it "finds all merchants by name" do
     merchants = create_list(:merchant, 5, name: "Super")
 
     get "/api/v1/merchants/find_all?name=#{merchants[1].name}"
@@ -86,5 +86,3 @@ describe "Merchants API" do
     expect(json.class).to eq Hash
   end
 end
-
-

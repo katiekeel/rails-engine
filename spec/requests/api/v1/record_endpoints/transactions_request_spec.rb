@@ -24,10 +24,21 @@ describe "Transactions API" do
     expect(json["id"]).to eq(id)
   end
 
+  it "finds one transaction by invoice_id" do
+    transaction = create(:transaction)
+
+    get "/api/v1/transactions/find?invoice_id=#{transaction.invoice_id}"
+
+    json = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(json["id"]).to eq(transaction.id)
+  end
+
   it "finds one transaction by merchant_id " do
     transaction = create(:transaction)
 
-    get "/api/v1/transactions/find?id=#{transaction.id}"
+    get "/api/v1/transactions/find?merchant_id=#{transaction.merchant.id}"
 
     json = JSON.parse(response.body)
 
@@ -58,5 +69,3 @@ describe "Transactions API" do
     expect(json.class).to eq Hash
   end
 end
-
-
