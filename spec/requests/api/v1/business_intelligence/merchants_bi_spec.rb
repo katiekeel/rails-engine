@@ -26,4 +26,19 @@ describe "Merchants BI API" do
     json = JSON.parse(response.body)
     expect(json["revenue"]).to eq "6.0"
   end
+
+  scenario "returns favorite customer" do
+    merchant = create(:merchant)
+    customer_1 = create(:customer)
+    customer_2 = create(:customer)
+    invoices = create_list(:invoice, 2, customer: customer_1, merchant: merchant)
+    invoice = create(:invoice, customer: customer_2, merchant: merchant)
+    transaction_1 = create(:transaction, invoice: invoices.first, result: 0)
+    transaction_2 = create(:transaction, invoice: invoices[1], result: 0)
+
+    get "/api/v1/merchants/#{merchant.id}/favorite_customer"
+
+    json = JSON.parse(response.body)
+    expect(json["id"]).to eq customer_1.id
+  end
 end
