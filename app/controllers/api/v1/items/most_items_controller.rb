@@ -1,7 +1,7 @@
 class Api::V1::Items::MostItemsController < ApplicationController
 
   def show
-    render json: InvoiceItem.most_items(params[:quantity])
+    render json: Item.most_items(params[:quantity])
   end
 
   private

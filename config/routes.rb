@@ -32,6 +32,8 @@ Rails.application.routes.draw do
       namespace :merchants do
         get "/:id/revenue", to: "revenue#show"
         get "/:id/favorite_customer", to: "favorite_customer#show"
+        get "/:id/invoices", to: "invoices#index"
+        get "/:id/items", to: "items#index"
         get "/find", to: "search#show"
         get "/find_all", to: "search#index"
         get "/random.json", to: "random#show"
@@ -41,12 +43,15 @@ Rails.application.routes.draw do
         get "/find", to: "search#show"
         get "/find_all", to: "search#index"
         get "/random.json", to: "random#show"
+        get "/:id/invoice", to: "invoice#index"
       end
       resources :transactions, only: [:index, :show]
       namespace :customers do
         get "/find", to: "search#show"
         get "/find_all", to: "search#index"
         get "/random.json", to: "random#show"
+        get "/:id/transactions", to: "transactions#index"
+        get "/:id/invoices", to: "invoices#index"
       end
       resources :customers, only: [:index, :show]
         get "/:id/revenue", to: "revenue#show"
