@@ -243,4 +243,15 @@ describe "Invoices API" do
     expect(response).to be_success
    expect(json.count).to eq 3
   end
+
+  it "finds associated customer" do
+    invoice = create(:invoice)
+
+    get "/api/v1/invoices/#{invoice.id}/customer"
+    json = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(json.class).to eq Hash
+    expect(json["id"]).to eq invoice.customer.id
+  end
 end
