@@ -38,6 +38,7 @@ Rails.application.routes.draw do
         get "/find_all", to: "search#index"
         get "/random.json", to: "random#show"
         get "/most_revenue", to: "most_revenue#index"
+        get "/revenue", to: "revenue#index"
       end
       resources :merchants, only: [:index, :show]
       namespace :transactions do
