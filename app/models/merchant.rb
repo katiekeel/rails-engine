@@ -19,7 +19,6 @@ class Merchant < ApplicationRecord
   end
 
   def self.favorite_customer(id)
-    # returns the customer who has conducted the most total number of successful transactions.
     Merchant.find(id).transactions.successful
     .group(:customer_id).order('count_id desc').count('id').keys[0]
   end

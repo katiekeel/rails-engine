@@ -7,4 +7,10 @@ class Item < ApplicationRecord
   validates_numericality_of :unit_price
 
   default_scope { order(id: :asc) }
+
+  def self.most_items(input)
+    input = input.to_i
+    sql = "SELECT \"items\".* FROM \"items\" INNER JOIN \"invoice_items\" ON \"invoice_items\".\"item_id\" = \"items\".\"id\" INNER JOIN \"invoices\" ON \"invoices\".\"id\" = \"invoice_items\".\"invoice_id\" INNER JOIN \"transactions\" ON \"transactions\".\"invoice_id\" = \"invoices\".\"id\" INNER JOIN \"invoice_items\" \"invoice_items_invoices\" ON \"invoice_items_invoices\".\"invoice_id\" = \"invoices\".\"id\" WHERE \"transactions\".\"result\" = 0 GROUP BY items.id ORDER BY count(invoice_items.item_id * invoice_items.quantity) DESC LIMIT #{input}"
+    ActiveRecord::Base.connection.execute(sql).to_json
+  end
 end
