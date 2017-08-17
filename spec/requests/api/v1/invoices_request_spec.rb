@@ -254,4 +254,15 @@ describe "Invoices API" do
     expect(json.class).to eq Hash
     expect(json["id"]).to eq invoice.customer.id
   end
+
+  it "finds associated merchant" do
+    invoice = create(:invoice)
+
+    get "/api/v1/invoices/#{invoice.id}/merchant"
+    json = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(json.class).to eq Hash
+    expect(json["id"]).to eq invoice.merchant.id
+  end
 end
