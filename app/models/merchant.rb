@@ -8,18 +8,30 @@ class Merchant < ApplicationRecord
   validates_presence_of :name
 
   def self.revenue(id)
-    Merchant.find(id).transactions.successful.joins(:invoice_items)
+    Merchant.find(id)
+    .transactions
+    .successful
+    .joins(:invoice_items)
     .sum("invoice_items.unit_price * invoice_items.quantity")
   end
 
   def self.revenue_by_date(id, date = Time.parse(date).getutc)
-    Merchant.find(id).invoices.where(created_at: date).joins(:transactions)
-    .where(transactions: {result: "success"}).joins(:invoice_items)
+    Merchant.find(id)
+    .invoices
+    .where(created_at: date)
+    .joins(:transactions)
+    .where(transactions: {result: "success"})
+    .joins(:invoice_items)
     .sum("invoice_items.unit_price * invoice_items.quantity")
   end
 
   def self.favorite_customer(id)
-    Merchant.find(id).transactions.successful
-    .group(:customer_id).order('count_id desc').count('id').keys[0]
+    Merchant.find(id)
+    .transactions
+    .successful
+    .group(:customer_id)
+    .order('count_id desc')
+    .count('id')
+    .keys[0]
   end
 end

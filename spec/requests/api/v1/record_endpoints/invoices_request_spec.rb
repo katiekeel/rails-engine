@@ -215,10 +215,10 @@ describe "Invoices API" do
    transactions = create_list(:transaction, 3, invoice_id: invoice.id)
 
    get "/api/v1/invoices/#{invoice.id}/transactions"
-  json = JSON.parse(response.body)
+   json = JSON.parse(response.body)
 
-  expect(response).to be_success
-  expect(json.count).to eq 3
+   expect(response).to be_success
+   expect(json.count).to eq 3
   end
 
 
