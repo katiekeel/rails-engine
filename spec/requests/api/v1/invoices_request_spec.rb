@@ -207,4 +207,15 @@ describe "Invoices API" do
     expect(json).to be_a(Hash)
     expect(Invoice.find(json["id"])).to be_a(Invoice)
   end
+
+  it "finds associated transactions" do
+   invoice = create(:invoice)
+   transactions = create_list(:transactions, 3) 
+
+   get "/api/v1/invoices/#{merchant.id}/transactions"
+  json = JSON.parse(response.body)
+
+  expect(response).to be_success
+  expect(json.count).to eq 3
+  end
 end
