@@ -6,7 +6,8 @@ class Customer < ApplicationRecord
 
   def favorite_merchant
     merchants
-    .select("merchants.*, count(transactions.id) AS transaction_count").joins(:transactions)
+    .select("merchants.*, count(transactions.id) AS transaction_count")
+    .joins(:transactions)
     .where("transactions.result = ?", 0)
     .group(:id)
     .order("transaction_count DESC")
