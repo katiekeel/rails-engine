@@ -18,4 +18,14 @@ FactoryGirl.define do
       object.transactions << create_list(:transaction, evaluator.transaction_count, result: "success")
     end
   end
+
+  trait :with_invoices do
+    transient do
+      invoice_count 3
+    end
+
+    after(:create) do |object, evaluator|
+      object.invoices << create_list(:invoice, evaluator.invoice_count)
+    end
+  end
 end
