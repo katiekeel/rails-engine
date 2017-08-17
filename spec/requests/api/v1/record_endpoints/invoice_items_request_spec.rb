@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe "Invoice Items API" do
   it "sends a list of invoice_items" do
     create_list(:invoice_item, 3)
