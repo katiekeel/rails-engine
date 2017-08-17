@@ -8,7 +8,6 @@ class Merchant < ApplicationRecord
   validates_presence_of :name
 
   def self.revenue(id)
-    # returns the total revenue for that merchant across successful transactions
     Merchant.find(id).transactions.successful.joins(:invoice_items)
     .sum("invoice_items.unit_price * invoice_items.quantity")
   end
