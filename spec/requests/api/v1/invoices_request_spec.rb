@@ -220,4 +220,16 @@ describe "Invoices API" do
   expect(response).to be_success
   expect(json.count).to eq 3
   end
+
+
+  it "finds associated invoice_items" do
+   invoice = create(:invoice)
+   invoice_items = create_list(:invoice_item, 3, invoice_id: invoice.id)
+
+   get "/api/v1/invoices/#{invoice.id}/invoice_items"
+   json = JSON.parse(response.body)
+
+   expect(response).to be_success
+   expect(json.count).to eq 3
+  end
 end
