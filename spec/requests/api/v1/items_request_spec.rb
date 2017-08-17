@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe "Items API" do
   it "sends a list of items" do
     create_list(:item, 3)
@@ -265,5 +267,18 @@ describe "Items API" do
     expect(response).to be_success
     expect(json).to be_a(Hash)
     expect(Item.find(json["id"])).to be_a(Item)
+  end
+
+  it "find associated invoice items" do
+    item = create(:item)
+    invoice_items = create_list(:invoice_item, 3, item_id: item.id)
+
+    get "/api/v1/items/#{item.id}/invoice_items"
+
+    json = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(json.count).to eq 3
+    expect(json[1]["id"]).to eq item.invoice_items[1].id
   end
 end
