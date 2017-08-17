@@ -281,4 +281,16 @@ describe "Items API" do
     expect(json.count).to eq 3
     expect(json[1]["id"]).to eq item.invoice_items[1].id
   end
+
+  it "finds associated merchant" do
+    item = create(:item)
+
+    get "/api/v1/items/#{item.id}/merchant"
+
+    json = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(json["id"]).to eq item.merchant.id
+    expect(json.class).to eq Hash
+  end
 end

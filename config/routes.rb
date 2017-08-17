@@ -5,7 +5,8 @@ Rails.application.routes.draw do
         get "/find", to: "search#show"
         get "/find_all", to: "search#index"
         get "/random.json", to: "random#show"
-        get"/:id/invoice_items", to: "invoice_items#show"
+        get "/:id/invoice_items", to: "invoice_items#show"
+        get "/:id/merchant", to: "merchant#show"
         get "/most_items", to: "most_items#show"
       end
       namespace :invoices do
