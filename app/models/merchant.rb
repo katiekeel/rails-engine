@@ -33,4 +33,18 @@ class Merchant < ApplicationRecord
     .count('id')
     .keys[0]
   end
+
+  def self.most_revenue(quantity)
+    joins(:invoice_items).select('merchants.id, merchants.name, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue')
+      .group('merchants.id')
+      .order('revenue DESC')
+      .limit(quantity)
+  end
+
+  def self.revenue_date(date)
+   joins(:invoice_items)
+    .select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
+    .where(invoices: {created_at: date})
+     .group ('merchants.id')
+  end
 end

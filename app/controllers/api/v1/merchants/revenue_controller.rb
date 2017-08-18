@@ -5,6 +5,10 @@ class Api::V1::Merchants::RevenueController < ApplicationController
     render json: {"revenue" => Merchant.revenue(params[:id])} if query_params[:date].nil?
   end
 
+  def index
+    render json: {"total_revenue" => Merchant.revenue_date(query_params[:date]).first.total_revenue}
+  end
+
   private
 
   def query_params
