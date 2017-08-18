@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         get "/:id/invoice_items", to: "invoice_items#show"
         get "/:id/merchant", to: "merchant#show"
         get "/most_items", to: "most_items#show"
+        get "/:id/best_day", to: "best_day#show"
       end
       namespace :invoices do
         get "/find", to: "search#show"
@@ -52,6 +53,7 @@ Rails.application.routes.draw do
         get "/random.json", to: "random#show"
         get "/:id/transactions", to: "transactions#index"
         get "/:id/invoices", to: "invoices#index"
+        get "/:id/favorite_merchant", to: "favorite_merchant#show"
       end
       resources :customers, only: [:index, :show]
         get "/:id/revenue", to: "revenue#show"
