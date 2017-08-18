@@ -46,6 +46,6 @@ class Merchant < ApplicationRecord
    joins(:invoice_items)
     .select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
     .where(invoices: {created_at: date})
-    .group ('merchants.id')
+     .group ('merchants.id')
   end
 end

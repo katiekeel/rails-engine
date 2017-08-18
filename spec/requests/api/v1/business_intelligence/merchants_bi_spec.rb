@@ -68,4 +68,19 @@ describe "Merchants BI API" do
     expect(json[0]["id"]).to eq m1.id
     expect(json[1]["id"]).to eq m2.id
   end
+
+  scenario "returns merchants ranked by revenue by date" do
+    m1, m2 = create_list(:merchant, 2)
+    i1 = create(:invoice, merchant_id: m1.id, created_at: '2012-03-16 11:55:05')
+    i2 = create(:invoice, merchant_id: m2.id, created_at: '2012-03-16 11:55:05')
+    ii1 = create_list(:invoice_item, 3, invoice_id: i1.id)
+    ii2 = create_list(:invoice_item, 2, invoice_id: i2.id)
+
+    get "/api/v1/merchants/revenue?date='2012-03-16 11:55:05"
+    json = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(json.keys).to eq ["total_revenue"]
+    expect(json.values).to eq ["3.0"]
+  end
 end
