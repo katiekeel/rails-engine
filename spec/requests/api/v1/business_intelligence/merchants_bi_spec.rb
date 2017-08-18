@@ -53,4 +53,19 @@ describe "Merchants BI API" do
     json = JSON.parse(response.body)
     expect(json["id"]).to eq customer_1.id
   end
+
+  scenario "returns top x merchants ranked by revenue" do
+    m1, m2 = create_list(:merchant, 2)
+    i1 = create(:invoice, merchant_id: m1.id)
+    i2 = create(:invoice, merchant_id: m2.id)
+    ii1 = create_list(:invoice_item, 3, invoice_id: i1.id)
+    ii2 = create_list(:invoice_item, 2, invoice_id: i2.id)
+
+    get "/api/v1/merchants/most_revenue?quantity=2"
+    json = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(json[0]["id"]).to eq m1.id
+    expect(json[1]["id"]).to eq m2.id
+  end
 end
