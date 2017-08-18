@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'active_model_serializers'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.3'
@@ -12,7 +13,7 @@ gem 'rails', '~> 5.1.3'
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
-
+gem 'active_model_serializers'
 
 
 group :development, :test do
@@ -21,6 +22,11 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'awesome_print'
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'launchy'
+  gem 'capybara'
+  gem 'simplecov', :require => false, :group => :test
 end
 
 group :development do
