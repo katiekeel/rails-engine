@@ -16,6 +16,12 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+require 'honeycomb-beeline'
+Honeycomb.init(
+    writekey: "de92b215a8163fbd1d9ea09512e9989e",
+    dataset: "little-shop"
+)
+
 module RailsEngine
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
