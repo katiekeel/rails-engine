@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   trait :with_invoice_items do
     transient do
       invoice_item_count 3
